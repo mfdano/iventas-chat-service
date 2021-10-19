@@ -5,6 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AppGateway } from './app.gateway';
+
+import { MessageService } from './service/message.service';
+
 import { UserSchema } from './model/user.model';
 import { ChatSchema } from './model/chat.model';
 import { MessageSchema } from './model/message.model';
@@ -28,6 +32,6 @@ import { MessageSchema } from './model/message.model';
     ])
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppGateway, MessageService],
 })
 export class AppModule {}
