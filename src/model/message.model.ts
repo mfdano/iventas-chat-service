@@ -1,7 +1,10 @@
 import { Schema } from 'mongoose';
 
 export const MessageSchema = new Schema({
-  userIds: [String],
+  chatId: String,
+  senderId: String,
+  content: String,
+  sentDate: Number,
 });
 
 export interface Message {

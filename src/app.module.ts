@@ -40,7 +40,7 @@ import { MessageController } from './controller/message.controller';
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET_KEY'),
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '3600s' },
       }),
       inject: [ConfigService]
     }),
