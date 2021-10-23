@@ -13,18 +13,24 @@ import { Server, Socket } from 'socket.io';
 import { MessageService } from './service/message.service'
 import { MessageDTO } from './dto/message.dto'
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true
+  }
+})
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   constructor(private messageService: MessageService) {}
 
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('on_receive_message')
-  async handleIncomingMessage(@MessageBody() data: MessageDTO,  @ConnectedSocket() client: Socket): Promise<void> {
-    console.log(JSON.stringify(data, null, 2));
-    await this.messageService.save(data);
-    this.server.emit('on_send_message', data);
+  @SubscribeMessage('on_client_message')
+  async handleIncomingMessage(@MessageBody() message: MessageDTO,  @ConnectedSocket() client: Socket) {
+    //console.log('on_client_message');
+    //console.log(JSON.stringify(message, null, 2));
+    await this.messageService.saveMessage(message);
+    this.server.emit('on_server_message', message);
   }
 
   afterInit(server: Server) {
