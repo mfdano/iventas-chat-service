@@ -11,7 +11,7 @@ import {
 
 import { Server, Socket } from 'socket.io';
 import { MessageService } from './service/message.service'
-import { MessageDTO } from './dto/message.dto'
+import { IncomingMessageDTO } from './dto/incoming_message.dto'
 
 @WebSocketGateway({
   cors: {
@@ -26,7 +26,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   server: Server;
 
   @SubscribeMessage('on_client_message')
-  async handleIncomingMessage(@MessageBody() message: MessageDTO,  @ConnectedSocket() client: Socket) {
+  async handleIncomingMessage(@MessageBody() message: IncomingMessageDTO,  @ConnectedSocket() client: Socket) {
     //console.log('on_client_message');
     //console.log(JSON.stringify(message, null, 2));
     await this.messageService.saveMessage(message);

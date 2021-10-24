@@ -1,7 +1,8 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { MessageService } from '../service/message.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { MessageDTO } from 'src/dto/message.dto';
+import { OutgoingMessageDTO } from '../dto/outgoing_message.dto';
+import { GetMessagesDTO } from 'src/dto/get_messages.dto';
 
 @Controller('messages')
 export class MessageController {
@@ -9,8 +10,8 @@ export class MessageController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getChatMessages(@Query() query): Promise<MessageDTO[]> {
-    const messages = await this.messageService.findByChatId(query.chatId);
-    return messages.map((message)  => message as MessageDTO);
+  async getChatMessages(@Query() query: GetMessagesDTO): Promise<OutgoingMessageDTO[]> {
+    const messages = await this.messageService.findByChatId(query);
+    return messages;
   }
 }

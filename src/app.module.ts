@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { AppGateway } from './app.gateway';
 
 import { MessageService } from './service/message.service';
+import { ChatService } from './service/chat.service';
 import { UserService } from './service/user.service';
 import { AuthService } from './service/auth.service';
 import { LocalStrategy } from './auth/local.strategy';
@@ -20,6 +21,7 @@ import { MessageSchema } from './model/message.model';
 
 import { UserController } from './controller/user.controller';
 import { MessageController } from './controller/message.controller';
+import { ChatController } from './controller/chat.controller';
 
 @Module({
   imports: [
@@ -45,8 +47,22 @@ import { MessageController } from './controller/message.controller';
       inject: [ConfigService]
     }),
   ],
-  controllers: [AppController, UserController, MessageController],
-  providers: [AppService, AppGateway, MessageService, UserService, AuthService, LocalStrategy, JwtStrategy],
+  controllers: [
+    AppController,
+    UserController,
+    MessageController,
+    ChatController
+  ],
+  providers: [
+    AppService,
+    AppGateway,
+    MessageService,
+    UserService,
+    AuthService,
+    ChatService,
+    LocalStrategy,
+    JwtStrategy
+  ],
   exports: [AuthService],
 })
 export class AppModule {}
