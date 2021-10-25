@@ -32,6 +32,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   //@UseGuards(JwtAuthGuard)
   @SubscribeMessage('on_client_message')
   async handleIncomingMessage(@MessageBody() message: IncomingMessageDTO,  @ConnectedSocket() client: Socket) {
+    console.log(JSON.stringify(message, null, 2))
     const clientMessage = await this.messageService.saveMessage(message);
     this.server.emit('on_server_message', clientMessage);
   }

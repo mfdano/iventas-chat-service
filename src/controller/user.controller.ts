@@ -27,6 +27,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('check_auth')
   async checkAuth(@Request() request, @Res({ passthrough: true }) response: Response) {
-    response.status(HttpStatus.OK).json({ id: request.user.id });
+    //response.status(HttpStatus.OK).json({ id: request.user.id });
+    return { id: request.user.id };
   }
 }

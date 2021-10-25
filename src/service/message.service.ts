@@ -14,7 +14,6 @@ export class MessageService {
   constructor(@InjectModel('Message') private messageModel: Model<Message>) {}
 
   async saveMessage(msg: IncomingMessageDTO): Promise<OutgoingMessageDTO> {
-    console.log(msg.content)
     let message = new this.messageModel(msg);
     message = await message.save();
     return this.toDTO(message, false);
