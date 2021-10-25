@@ -23,7 +23,6 @@ let AppGateway = class AppGateway {
         this.messageService = messageService;
     }
     async handleIncomingMessage(message, client) {
-        console.log(JSON.stringify(message, null, 2));
         const clientMessage = await this.messageService.saveMessage(message);
         this.server.emit('on_server_message', clientMessage);
     }
