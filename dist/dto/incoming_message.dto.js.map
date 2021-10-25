@@ -1,0 +1,1 @@
+{"version":3,"file":"incoming_message.dto.js","sourceRoot":"","sources":["../../src/dto/incoming_message.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,kBAAkB;IAM7B,YAAY,MAAc,EAAE,QAAgB,EAAE,OAAe,EAAE,QAAgB;QAC7E,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC3B,CAAC;CACF;AAZD,gDAYC"}

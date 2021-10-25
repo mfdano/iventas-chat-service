@@ -1,0 +1,1 @@
+{"version":3,"file":"chat.dto.js","sourceRoot":"","sources":["../../src/dto/chat.dto.ts"],"names":[],"mappings":";;;AAGA,MAAa,OAAO;IAKlB,YAAY,EAAU,EAAE,QAA8B,EAAE,KAAiB;QACvE,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;QACb,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACrB,CAAC;CACF;AAVD,0BAUC"}
