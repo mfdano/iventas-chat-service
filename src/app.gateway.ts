@@ -9,6 +9,8 @@ import {
   OnGatewayInit
 } from '@nestjs/websockets';
 
+import 'dotenv/config';
+
 import { Server, Socket } from 'socket.io';
 import { MessageService } from './service/message.service'
 import { IncomingMessageDTO } from './dto/incoming_message.dto'
@@ -17,7 +19,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.ORIGIN,
     credentials: true
   }
 })
