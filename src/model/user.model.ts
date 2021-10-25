@@ -11,6 +11,7 @@ export const UserSchema = new Schema({
   promoDescription: String,
   CURP: String,
   password: String,
+  notes: String,
 });
 
 export interface User {
@@ -25,4 +26,5 @@ export interface User {
   promoDescription: string;
   CURP: string;
   password: string;
+  notes: string;
 }

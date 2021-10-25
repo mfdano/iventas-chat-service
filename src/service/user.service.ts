@@ -5,14 +5,18 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 import { User } from '../model/user.model';
+import { AddUserDTO } from 'src/dto/add_user.dto';
+
+const SALT_PASSWORD = 10;
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel('User') private userModel: Model<User>) {}
 
-  async save(_user: any): Promise<void> {
-    const passwordHash = await bcrypt.hash(_user.password, 10);
-    const user = new this.userModel({ name: _user.name, email: _user.email, password: passwordHash});
+  async save(_user: AddUserDTO): Promise<void> {
+    const passwordHash = await bcrypt.hash(_user.password, SALT_PASSWORD);
+    const user = new this.userModel(_user);
+    user.password = passwordHash;
     await user.save();
   }
 

@@ -17,11 +17,13 @@ export class ChatService {
   private readonly userService: UserService) {}
 
   async findByUserId(query: GetChatDTO): Promise<ChatDTO> {
+    console.log('query', query.userId )
     const chat = await this.chatModel
       .findOne({ userIds: query.userId })
       .exec();
 
     const messages = await this.messageService.findByChatId(new GetMessagesDTO(chat.id, query.lastDate, query.limit));
+    //console.log(JSON.stringify(messages, null, 2))
     const users = [];
 
     for await (const _user of chat.userIds.map(async (id) => await this.userService.findOneById(id)))
@@ -30,7 +32,7 @@ export class ChatService {
     return new ChatDTO(chat.id,
       messages,
       users.map((user) => new UserDTO(user.id, user.name, user.phoneNumber, user.imageProfileSRC, user.age,
-        user.email, user.priority, user.problemDescription, user.promoDescription, user.CURP))
+        user.email, user.priority, user.problemDescription, user.promoDescription, user.CURP, user.notes))
     )
   }
 }

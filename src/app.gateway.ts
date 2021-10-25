@@ -12,6 +12,8 @@ import {
 import { Server, Socket } from 'socket.io';
 import { MessageService } from './service/message.service'
 import { IncomingMessageDTO } from './dto/incoming_message.dto'
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @WebSocketGateway({
   cors: {
@@ -25,12 +27,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @WebSocketServer()
   server: Server;
 
+  //@UseGuards(JwtAuthGuard)
   @SubscribeMessage('on_client_message')
   async handleIncomingMessage(@MessageBody() message: IncomingMessageDTO,  @ConnectedSocket() client: Socket) {
-    //console.log('on_client_message');
-    //console.log(JSON.stringify(message, null, 2));
-    await this.messageService.saveMessage(message);
-    this.server.emit('on_server_message', message);
+    const clientMessage = await this.messageService.saveMessage(message);
+    this.server.emit('on_server_message', clientMessage);
   }
 
   afterInit(server: Server) {

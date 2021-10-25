@@ -1,5 +1,4 @@
-export class UserDTO {
-  id: string;
+export class AddUserDTO {
   name: string;
   phoneNumber: number;
   imageProfileSRC: string;
@@ -9,13 +8,13 @@ export class UserDTO {
   problemDescription: string;
   promoDescription: string;
   CURP: string;
+  password: string;
   notes: string;
 
-  constructor(id: string, name: string, phoneNumber: number, imageProfileSRC: string,
+  constructor(name: string, phoneNumber: number, imageProfileSRC: string,
     age: number, email: string, priority: string, problemDescription: string,
-    promoDescription: string, CURP: string, notes: string) {
+    promoDescription: string, CURP: string, password: string,  notes: string) {
       
-    this.id = id;
     this.name = name;
     this.phoneNumber = phoneNumber;
     this.imageProfileSRC = imageProfileSRC;
@@ -25,6 +24,7 @@ export class UserDTO {
     this.problemDescription = problemDescription;
     this.promoDescription = promoDescription;
     this.CURP = CURP;
+    this.password = password;
     this.notes = notes;
   }
 }

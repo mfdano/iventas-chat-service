@@ -13,9 +13,11 @@ import { OutgoingMessageDTO } from 'src/dto/outgoing_message.dto';
 export class MessageService {
   constructor(@InjectModel('Message') private messageModel: Model<Message>) {}
 
-  async saveMessage(msg: IncomingMessageDTO): Promise<void> {
-    const message = new this.messageModel(msg);
-    await message.save();
+  async saveMessage(msg: IncomingMessageDTO): Promise<OutgoingMessageDTO> {
+    console.log(msg.content)
+    let message = new this.messageModel(msg);
+    message = await message.save();
+    return this.toDTO(message, false);
   }
  
   async findByChatId(query: GetMessagesDTO): Promise<OutgoingMessageDTO[]> {
@@ -28,20 +30,24 @@ export class MessageService {
 
     for (let idx = 0; idx < messages.length - 1; idx++) {
       outgoingMessages.push(
-        new OutgoingMessageDTO(
-          messages[idx].id, messages[idx].chatId, messages[idx].senderId, messages[idx].content,
-          messages[idx].sentDate, messages[idx].senderId !== messages[idx + 1].senderId)
-        )
+        this.toDTO(messages[idx],
+        messages[idx].senderId !== messages[idx + 1].senderId)
+      )
     }
 
-    if (outgoingMessages.length < query.limit && outgoingMessages.length > 0) {
-      outgoingMessages.push( new OutgoingMessageDTO(
-        messages[messages.length - 1].id, messages[messages.length - 1].chatId, messages[messages.length - 1].senderId,
-        messages[messages.length - 1].content, messages[messages.length - 1].sentDate, true)
-      );
+    if (messages.length === 1) {
+      outgoingMessages.push( this.toDTO(messages[0], true))
+    } else if (outgoingMessages.length < query.limit && outgoingMessages.length > 0) {
+      outgoingMessages.push( this.toDTO(messages[messages.length - 1], true))
       outgoingMessages[outgoingMessages.length - 1].isFirst = true;
     }
-    
+
     return outgoingMessages;
+  }
+
+  private toDTO(message: Message, isFirst: boolean): OutgoingMessageDTO {
+    return new OutgoingMessageDTO(
+      message.id, message.chatId,message.senderId, message.content, message.sentDate, isFirst
+    )
   }
 }

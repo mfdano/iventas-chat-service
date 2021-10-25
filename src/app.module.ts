@@ -42,7 +42,7 @@ import { ChatController } from './controller/chat.controller';
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET_KEY'),
-        signOptions: { expiresIn: '3600s' },
+        signOptions: { expiresIn: '10m' },
       }),
       inject: [ConfigService]
     }),
