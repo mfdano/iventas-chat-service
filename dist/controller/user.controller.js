@@ -29,7 +29,7 @@ let UserController = class UserController {
     }
     async findAll(request, response) {
         const result = await this.authService.login(request);
-        response.cookie('token', result.access_token, { httpOnly: true });
+        response.cookie('token', result.access_token, { httpOnly: true, sameSite: 'none', secure: true });
         response.status(common_1.HttpStatus.OK).json({ id: result.id });
     }
     async checkAuth(request, response) {

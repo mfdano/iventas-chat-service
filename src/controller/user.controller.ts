@@ -20,7 +20,7 @@ export class UserController {
   @Post('login')
   async findAll(@Request() request, @Res({ passthrough: true }) response: Response) {
     const result = await this.authService.login(request);
-    response.cookie('token', result.access_token, { httpOnly: true })
+    response.cookie('token', result.access_token, { httpOnly: true, sameSite: 'none', secure: true })
     response.status(HttpStatus.OK).json({ id: result.id })
   }
 
